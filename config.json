@@ -1,5 +1,6 @@
 {
     "logdir": "/home/pi/work/log/log_usb",
+    "line_token": "hoge",
     "devices": [
         {
             "sensor_name": "co2",

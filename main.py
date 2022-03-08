@@ -18,6 +18,16 @@ def conv(data):
         return int(data[1])
 
 
+def send_message(token,message):
+    headers = {
+        "Authorization": "Bearer " + token,
+    }
+    files = {
+        "message": (None, message),
+    }
+    res = requests.post("https://notify-api.line.me/api/notify", headers=headers, files=files)
+    print(res)
+
 # 設定値読み込み
 f = open("/home/pi/work/usb_notifier/config.json", "r")
 conf = json.loads(f.read())
@@ -58,3 +68,6 @@ for device in conf["devices"]:
                 break
         except Exception as e:
             pass
+
+# line送信処理
+send_message(conf["line_token"],"hoge")
