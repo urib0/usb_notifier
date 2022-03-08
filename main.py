@@ -17,7 +17,6 @@ def conv(data):
     else:
         return int(data[1])
 
-
 def send_message(token,message):
     headers = {
         "Authorization": "Bearer " + token,
@@ -34,6 +33,7 @@ conf = json.loads(f.read())
 f.close()
 
 data_dic = {}
+data_l = []
 for device in conf["devices"]:
     data_arr = []
     if "cpu_temp" == device["sensor_name"]:
@@ -60,7 +60,7 @@ for device in conf["devices"]:
 
                     if data_pair[0] in device["sensors"]:
                         # 送信すべきambientのデータ番号が存在することを確認 ex) d1~d8
-                        print(data_pair[0] + ":" + str(conv(data_pair)))
+                        data_l.append(device["sensors"][data_pair[0]] + ":" + str(conv(data_pair)))
                         data_dic[device["sensors"][data_pair[0]]] = conv(data_pair)
                     else:
                         break
@@ -69,5 +69,11 @@ for device in conf["devices"]:
         except Exception as e:
             pass
 
+# 送信メッセージ作成
+messages = conf["title"] + "\n"
+for i in range(len(data_l)):
+    messages += data_l[i] + "\n"
+print(messages)
+
 # line送信処理
-send_message(conf["line_token"],"hoge")
+send_message(conf["line_token"],messages)
