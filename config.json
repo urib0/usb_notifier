@@ -1,0 +1,18 @@
+{
+    "logdir": "/home/pi/work/log/log_usb",
+    "devices": [
+        {
+            "sensor_name": "co2",
+            "sensors": {
+                "co2": "CO2濃度[ppm]"
+            }
+        },
+        {
+            "sensor_name": "temp_hum_low",
+            "sensors": {
+                "temp": "温度[℃]",
+                "hum": "湿度[%]"
+            }
+        }
+    ]
+}
